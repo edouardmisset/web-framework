@@ -42,5 +42,16 @@ export class User {
       })
   }
 
-  
+  save(): void {
+    const id = this.get('id')
+    if (id) {
+      axios.put(`http://localhost:3000/users/${id}`, this.data)
+    } else {
+      axios
+        .post(`http://localhost:3000/users/`, this.data)
+        .then((response: AxiosResponse): void => {
+          Object.assign(this.data, response)
+        })
+    }
+  }
 }

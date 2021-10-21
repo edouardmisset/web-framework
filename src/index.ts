@@ -1,7 +1,5 @@
 import { User } from './User'
 
-const user = new User({ id: 1 })
+const user = new User({ name: 'Franky', age: -0 })
 
-user.fetch()
-
-console.log(user)
+user.save()
