@@ -1,5 +1,9 @@
-import { User } from './User'
+import { User } from './models/User'
 
 const user = new User({ name: 'Franky', age: -0 })
 
-user.save()
+user.events.on('change', (): void => {
+  console.log('some change')
+})
+
+user.events.trigger('change')
