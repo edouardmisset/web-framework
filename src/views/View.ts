@@ -1,16 +1,20 @@
 import { Model } from '../models/Model'
 
 export abstract class View<T extends Model<K>, K> {
-  abstract eventsMap(): { [key: string]: () => void }
-  abstract template(): string
-
   constructor(public parent: Element, public model: T) {
     this.bindModel()
   }
 
+  abstract template(): string
+
   bindModel(): void {
     this.model.on('change', () => this.render())
   }
+
+  eventsMap(): { [key: string]: () => void } {
+    return {}
+  }
+
   render(): void {
     this.parent.innerHTML = ''
     const templateElement = document.createElement('template')
@@ -19,6 +23,7 @@ export abstract class View<T extends Model<K>, K> {
     this.bindEvents(templateElement.content)
     this.parent.appendChild(templateElement.content)
   }
+  
   bindEvents(fragment: DocumentFragment): void {
     const eventsMap = this.eventsMap()
     for (const eventKey in eventsMap) {
