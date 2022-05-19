@@ -1,4 +1,4 @@
-type Callback = () => void
+type Callback = VoidFunction
 
 export class Eventing {
   events: { [key: string]: Callback[] } = {}

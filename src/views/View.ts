@@ -11,7 +11,7 @@ export abstract class View<T extends Model<K>, K> {
     this.model.on('change', () => this.render())
   }
 
-  eventsMap(): { [key: string]: () => void } {
+  eventsMap(): { [key: string]: VoidFunction } {
     return {}
   }
 
@@ -23,7 +23,7 @@ export abstract class View<T extends Model<K>, K> {
     this.bindEvents(templateElement.content)
     this.parent.appendChild(templateElement.content)
   }
-  
+
   bindEvents(fragment: DocumentFragment): void {
     const eventsMap = this.eventsMap()
     for (const eventKey in eventsMap) {

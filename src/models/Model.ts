@@ -12,7 +12,7 @@ interface Sync<T> {
 }
 
 interface Events {
-  on(eventName: string, callback: () => void): void
+  on(eventName: string, callback: VoidFunction): void
   trigger(eventName: string): void
 }
 
@@ -25,7 +25,7 @@ export class Model<T extends HasId> {
     private attributes: ModelAttributes<T>,
     private events: Events,
     private sync: Sync<T>
-  ) {}
+  ) { }
 
   on = this.events.on
   trigger = this.events.trigger
@@ -42,7 +42,7 @@ export class Model<T extends HasId> {
       throw new Error('Cannot fetch without an id')
     }
     this.sync.fetch(id).then((response: AxiosResponse): void => {
-      this.set(response.data)
+      return this.set(response.data as T)
     })
   }
 

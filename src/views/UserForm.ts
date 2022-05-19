@@ -28,7 +28,7 @@ export class UserForm extends View<User, UserProps> {
     `
   }
 
-  eventsMap(): { [key: string]: () => void } {
+  eventsMap(): { [key: string]: VoidFunction } {
     return {
       'click:.set-age': this.onSetAgeClick,
       'click:.set-name': this.onSetNameClick,
